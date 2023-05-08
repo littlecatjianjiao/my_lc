@@ -1,0 +1,5 @@
+/target/
+/my_lc.iml
+/.idea/
+/dependency-reduced-pom.xml
+/localTestDir/
