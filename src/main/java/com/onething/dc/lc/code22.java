@@ -111,5 +111,5 @@ public class code22 {
      * 广度优先
      */
 
-    public void
+//    public void
 }
