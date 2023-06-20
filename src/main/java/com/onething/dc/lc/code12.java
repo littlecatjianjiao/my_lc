@@ -1,10 +1,15 @@
 package com.onething.dc.lc;
 
 /**
- * @ClassPath: com.onething.dc.lc
- * @Description:
- * @Author: jiangchunyang
- * @Date: 2023/3/28
+ * 整数转罗马数字
+ * 字符 数值
+ * I 1
+ * V 5
+ * X 10
+ * L 50
+ * C 100
+ * D 500
+ * M 1000
  */
 public class code12 {
     public String intToRoman(int num) {
