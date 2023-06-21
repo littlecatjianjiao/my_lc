@@ -41,10 +41,15 @@ public class code19 {
         ListNode pre = new ListNode(0);
         pre.next = head;
         ListNode start = pre, end = pre;
+        // 将数据从链表前端划分出现同的距离
         while (n != 0) {
             start = start.next;
             n--;
         }
+
+        //定位到start.next == null，也就是start指针指到最后一个数据的时候
+        //end指针在start指针之前的n个位置
+        //然后end.next = end.next.next;即可
         while (start.next != null) {
             start = start.next;
             end = end.next;
