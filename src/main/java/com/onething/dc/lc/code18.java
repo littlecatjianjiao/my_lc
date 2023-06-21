@@ -5,10 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @ClassPath: com.onething.dc.lc
- * @Description:
- * @Author: jiangchunyang
- * @Date: 2023/5/4
+ * 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。
+ * 请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] （若两个四元组元素一一对应，则认为两个四元组重复）：
+ * <p>
+ * 0 <= a, b, c, d < n
+ * a、b、c 和 d 互不相同
+ * nums[a] + nums[b] + nums[c] + nums[d] == target
+ * 你可以按 任意顺序 返回答案 。
+ * <p>
+ * 示例 1：
+ * <p>
+ * 输入：nums = [1,0,-1,0,-2,2], target = 0
+ * 输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+ * 示例 2：
+ * <p>
+ * 输入：nums = [2,2,2,2,2], target = 8
+ * 输出：[[2,2,2,2]]
  */
 public class code18 {
     public List<List<Integer>> test(int[] nums, int target) {
@@ -66,6 +78,64 @@ public class code18 {
             }
         }
 
+        return resList;
+    }
+
+
+    public List<List<Integer>> test1(int[] nums, int target) {
+        ArrayList<List<Integer>> resList = new ArrayList<>();
+        if (nums == null || nums.length < 4) {
+            return resList;
+        }
+        Arrays.sort(nums);
+        int len = nums.length;
+        //首次
+        for (int first = 0; first < nums.length - 3; first++) {
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            if (nums[first] + nums[len - 1] + nums[len - 2] + nums[len - 3] > target) {
+                break;
+            }
+
+            if (nums[first] + nums[len - 1] + nums[len - 2] + nums[len - 3] < target) {
+                continue;
+            }
+
+            for (int second = first + 1; second < nums.length - 2; second++) {
+                //相同的数据跳过
+                if (second > first + 1 && nums[second] == nums[second - 1]) {
+                    continue;
+                }
+                // 筛减
+                if (nums[second] + nums[second + 1] + nums[second + 2] + nums[second + 3] > target) {
+                    break;
+                }
+                if (nums[second] + nums[len - 1] + nums[len - 2] + nums[len - 3] < target) {
+                    continue;
+                }
+                int thrid = second + 1;
+                int fourth = len - 1;
+                while (thrid < fourth) {
+                    int t = nums[first] + nums[second] + nums[thrid] + nums[fourth];
+                    if (t == target) {
+                        resList.add(Arrays.asList(nums[first], nums[second], nums[thrid], nums[fourth]));
+                        while (thrid < fourth && nums[thrid] == nums[fourth]) {
+                            thrid++;
+                        }
+                        thrid++;
+                        while (thrid < fourth && nums[fourth] == nums[fourth - 1]) {
+                            fourth--;
+                        }
+                        fourth--;
+                    } else if (t < target) {
+                        thrid++;
+                    } else {
+                        fourth--;
+                    }
+                }
+            }
+        }
         return resList;
     }
 
