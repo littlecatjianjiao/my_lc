@@ -12,6 +12,9 @@ public class test {
     public static void main(String[] args) {
         String aa = "123456";
         System.out.println(aa.substring(0,2));
+
+        int ans = 1 << 30;
+        System.out.println(ans);
     }
     public void testaa(){
         int a = 0;

@@ -4,10 +4,21 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
- * @ClassPath: com.onething.dc.lc
- * @Description:
- * @Author: jiangchunyang
- * @Date: 2023/4/27
+ * 给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+ * <p>
+ * 返回这三个数的和。
+ * <p>
+ * 假定每组输入只存在恰好一个解。
+ * <p>
+ * 示例 1：
+ * <p>
+ * 输入：nums = [-1,2,1,-4], target = 1
+ * 输出：2
+ * 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。
+ * 示例 2：
+ * <p>
+ * 输入：nums = [0,0,0], target = 1
+ * 输出：0
  */
 public class code16 {
     public int threeSumClosest(int[] nums, int target) {
@@ -36,40 +47,19 @@ public class code16 {
 
     public int test(int[] nums, int target) {
         Arrays.sort(nums);
-        int res = 0;
+        int res = Integer.MAX_VALUE;
         for (int first = 0; first < nums.length; first++) {
-            int sec = first + 1;
+            int second = first + 1;
             int third = nums.length - 1;
-            while (sec < third) {
-                int tmp = nums[first] + nums[sec] + nums[third];
-                if (tmp == target) {
-                    return tmp;
+            while (second < third) {
+                int t = nums[first] + nums[second] + nums[third];
+                if (t == target) return t;
+                if (Math.abs(t - target) < Math.abs(res - target)) res = t;
+                if (t > target) {
+                    third--;
+                } else {
+                    second++;
                 }
-
-                res = Math.min(res,Math.abs(target - tmp));
-
-                if (tmp > target) third--;
-                if (tmp < target) sec++;
-            }
-        }
-        return res;
-    }
-
-
-    public int test1(int[] nums, int target) {
-        Arrays.sort(nums);
-        int res = 0;
-        for (int i =0;i<nums.length ;i++){
-            int j = i+1;
-            int k = nums.length -1;
-            while (j < k) {
-                int tmp = nums[i] + nums[j] + nums[k];
-                if (tmp == target) {
-                    return tmp;
-                }
-                res = Math.min(res, Math.abs(target - tmp));
-                if (tmp > target) k--;
-                if (tmp < target) j++;
             }
         }
 
