@@ -10,11 +10,8 @@ public class test {
     private static volatile boolean stop = false;
 
     public static void main(String[] args) {
-        StringBuffer sb = new StringBuffer();
-        sb.append("aa").append("bb");
-        System.out.println(sb.toString());
-        sb.deleteCharAt(0);
-        System.out.println(sb.toString());
+        String aa = "123456";
+        System.out.println(aa.substring(0,2));
     }
     public void testaa(){
         int a = 0;

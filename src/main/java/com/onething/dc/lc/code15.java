@@ -1,47 +1,40 @@
 package com.onething.dc.lc;
 
+import org.apache.flink.shaded.netty4.io.netty.handler.codec.marshalling.ContextBoundUnmarshallerProvider;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * @ClassPath: com.onething.dc.lc
- * @Description:
- * @Author: jiangchunyang
- * @Date: 2023/4/27
+ * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
+ * <p>
+ * 你返回所有和为 0 且不重复的三元组。
+ * <p>
+ * 注意：答案中不可以包含重复的三元组。
+ * <p>
+ * 示例 1：
+ * <p>
+ * 输入：nums = [-1,0,1,2,-1,-4]
+ * 输出：[[-1,-1,2],[-1,0,1]]
+ * 解释：
+ * nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+ * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+ * nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+ * 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+ * 注意，输出的顺序和三元组的顺序并不重要。
+ * 示例 2：
+ * <p>
+ * 输入：nums = [0,1,1]
+ * 输出：[]
+ * 解释：唯一可能的三元组和不为 0 。
+ * 示例 3：
+ * <p>
+ * 输入：nums = [0,0,0]
+ * 输出：[[0,0,0]]
+ * 解释：唯一可能的三元组和为 0 。
  */
 public class code15 {
-    public List<List<Integer>> test(int[] nums) {
-        ArrayList<List<Integer>> resList = new ArrayList<>();
-        Arrays.sort(nums);
-        for (int first = 0; first < nums.length; first++) {
-            if (first>0 && nums[first] > nums[first - 1]) {
-                continue;
-            }
-
-            int third = nums.length - 1;
-            int target = -nums[first];
-            for (int second=first+1;second<nums.length;second++){
-                if (second<nums.length - 1 && nums[second] > nums[second - 1]) {
-                    continue;
-                }
-                while (second<third && nums[second] + nums[third] > target) {
-                    third--;
-                }
-
-                if (nums[second] + nums[third]==target) {
-                    ArrayList<Integer> integers = new ArrayList<>();
-                    integers.add(first);
-                    integers.add(second);
-                    integers.add(third);
-                    resList.add(integers);
-                }
-            }
-        }
-
-        return resList;
-    }
-
     public List<List<Integer>> threeSum(int[] nums) {
         int n = nums.length;
         Arrays.sort(nums);
@@ -80,5 +73,40 @@ public class code15 {
             }
         }
         return ans;
+    }
+
+    public List<List<Integer>> test(int[] nums) {
+        ArrayList<List<Integer>> resList = new ArrayList<>();
+        Arrays.sort(nums);
+        int n = nums.length;
+
+        for (int first = 0; first < n; first++) {
+            int third = n - 1;
+            int target = -nums[first];
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            for (int second = first + 1; second < n - 1; second++) {
+                if (second > 0 && nums[second] == nums[second - 1]) {
+                    continue;
+                }
+                while (second < third && nums[second] + nums[third] > target) {
+                    third--;
+                }
+
+                if (second == third) {
+                    break;
+                }
+                if (nums[second] + nums[third] == target) {
+                    ArrayList<Integer> list = new ArrayList<>();
+                    list.add(first);
+                    list.add(second);
+                    list.add(third);
+                    resList.add(list);
+                }
+            }
+        }
+
+        return resList;
     }
 }
