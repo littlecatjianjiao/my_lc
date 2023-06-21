@@ -7,13 +7,14 @@ import scala.reflect.api.Trees;
 import java.beans.IndexedPropertyDescriptor;
 
 /**
- * @ClassPath: com.onething.dc.lc
- * @Description:
+ * 获取公共前缀
+ * <p>
  * //输入：strs = ["flower","flow","flight"]
  * //输出："fl"
  * //输入：strs = ["dog","racecar","car"]
  * //输出：""
  * //解释：输入不存在公共前缀。
+ *
  * @Author: jiangchunyang
  * @Date: 2023/4/27
  */
@@ -42,32 +43,28 @@ public class code14 {
         return str1.substring(0, index);
     }
 
-
-
     //strs = ["flower","flow","flight"]
-    public String longestComPre(String[] arr){
-        if (arr.length == 0 || arr == null) {
-            return "";
+    public String test(String[] arr) {
+        if (arr == null || arr.length == 0) return "";
+        String first = arr[0];
+        String common = "";
+        // arr[0] = flower
+        // arr[1] = flow
+        // arr[2] = flight
+        for (int i = 1;i < arr.length;i++){
+            String other = arr[i];
+            common = getcommon(first, arr[i]);
         }
-        String first_str = arr[0];
-        String commenPrefix = "";
-        for (int i=1;i<arr.length;i++){
-            commenPrefix = getlongestComPre(first_str, arr[i]);
-            if (commenPrefix.length() ==0) {
-                return "";
-            }
-        }
-
-        return commenPrefix;
+        return common;
     }
 
-    public String getlongestComPre(String s1,String s2){
-        int minLen = Math.min(s1.length(), s2.length());
+    public String getcommon(String str1,String str2){
         int index = 0;
-        while (index < minLen && s1.charAt(index) == s2.charAt(index)) {
+        int len = Math.min(str1.length(), str2.length());
+        while (index < len && str1.charAt(index) == str2.charAt(index) ) {
             index++;
         }
 
-        return s1.substring(0, index + 1);
+        return str1.substring(0, index + 1);
     }
 }
