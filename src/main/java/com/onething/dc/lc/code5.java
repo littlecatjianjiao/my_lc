@@ -36,6 +36,27 @@ public class code5 {
         return s.substring(start, start + mx);
     }
 
+    public String test11(String s) {
+        int n = s.length();
+        int mx = 0;
+        int start = 0;
+        boolean[][] dp = new boolean[n][n];
+        for (int j = 1; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                if (j - i < 2) {
+                    dp[i][j] = s.charAt(i) == s.charAt(j);
+                } else {
+                    dp[i][j] = dp[i + 1][j - 1] && s.charAt(i) == s.charAt(j);
+                }
+                if (dp[i][j] && mx < j - i + 1) {
+                    mx = j - i + 1;
+                    start = i;
+                }
+            }
+        }
+        return s.substring(start, start + mx);
+    }
+
 
     public static void main(String[] args) {
         String s1 = "baabc";
