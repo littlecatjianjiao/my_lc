@@ -59,10 +59,10 @@ public class code3 {
         for (int j = 0; j < s.length(); j++) {
             char c = s.charAt(i);
             while (charSet.contains(c)) {
-                charSet.remove(c);
+                charSet.remove(s.charAt(i++));
             }
             charSet.add(c);
-            ans = Math.max(ans, j - i - 1);
+            ans = Math.max(ans, j - i + 1);
         }
         return ans;
     }
