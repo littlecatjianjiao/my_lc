@@ -28,6 +28,7 @@ public class code33 {
             if (nums[mid] == target) {
                 return mid;
             }
+
             // 先根据 nums[mid] 与 nums[low] 的关系判断 mid 是在左段还是右段 
             if (nums[mid] >= nums[low]) {
                 // 再判断 target 是在 mid 的左边还是右边，从而调整左右边界 low 和 high 
